@@ -14,5 +14,5 @@ func main() {
 	m[7] = Student{"bbb", 76}
 	m[18] = Student{"ccc", 99}
 
-	fmt.Print("번", m[5])
+	fmt.Print("5번", m[5])
 }
