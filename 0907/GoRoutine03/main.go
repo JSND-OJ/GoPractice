@@ -6,11 +6,15 @@ import (
 	"time"
 )
 
+var mutex sync.Mutex
+
 type Account struct {
 	Balance int
 }
 
 func DepositAndWithdraw(account *Account) {
+	mutex.Lock()
+	defer mutex.Unlock()
 	if account.Balance < 0 { // ➍ 잔고가 0이하면 패닉
 		panic(fmt.Sprintf("Balance should not be negative value: %d", account.Balance))
 	}
