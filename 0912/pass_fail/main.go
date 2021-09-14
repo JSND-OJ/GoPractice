@@ -1,26 +1,16 @@
 package main
 
 import (
-	"bufio"
+	"GoPractice/0914/input"
 	"fmt"
 	"log"
-	"os"
-	"strconv"
-	"strings"
 )
 
 var status string
 
 func main() {
 	fmt.Print("Enter a grade: ")
-	reader := bufio.NewReader(os.Stdin)
-	input, err := reader.ReadString('\n')
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	input = strings.TrimSpace(input)
-	grade, err := strconv.ParseFloat(input, 64)
+	grade, err := input.GetFloat()
 	if err != nil {
 		log.Fatal(err)
 	}
