@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GoPractice/0914/input"
+	"GoPractice/myPKG/input"
 	"fmt"
 	"log"
 )
