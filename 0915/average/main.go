@@ -1,13 +1,13 @@
 package main
 
 import (
-	"GoPractice/myPKG/fromtxt"
+	"GoPractice/myPKG/datafile"
 	"fmt"
 	"log"
 )
 
 func main() {
-	numbers, err := fromtxt.GetFloats("data.txt")
+	numbers, err := datafile.GetFloats("data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
