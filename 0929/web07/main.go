@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"sort"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -22,6 +23,7 @@ func MakeWebHandler() http.Handler {
 	mux := mux.NewRouter() // ❷ gorilla/mux를 만듭니다.
 	mux.HandleFunc("/students", GetStudentListHandler).Methods("GET")
 	//-- ❸ 여기에 새로운 핸들러 등록 --//
+	mux.HandleFunc("/students/{id:[0-9]+}", GetStudentHandler).Methods("GET")
 
 	students = make(map[int]Student) // ❹ 임시 데이터 생성
 	students[1] = Student{1, "aaa", 16, 87}
@@ -52,6 +54,19 @@ func GetStudentListHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(list) // ➏ JSON 포맷으로 변경
+}
+
+func GetStudentHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r) // ❶ id를 가져옵니다.
+	id, _ := strconv.Atoi(vars["id"])
+	student, ok := students[id]
+	if !ok {
+		w.WriteHeader(http.StatusNotFound) // ❷ id에 해당하는 학생이 없으면 에러
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(student)
 }
 
 func main() {
